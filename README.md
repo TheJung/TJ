@@ -6,13 +6,15 @@
  * Typescript >= 2.4.2
  * Meteor Latest
 
-## Get TJ App
+## Getting on test app
 
- > $ git clone https://github.com/TheJung/TJ
- 
- > $ cd TJ
- 
- > $ yarn # or npm install
- 
- > $ meteor
+  > $ git clone https://github.com/TheJung/TJ
 
+  > $ cd TJ
+
+  > $ yarn # or npm install
+
+  > $ meteor
+
+## License
+This project based on https://github.com/Urigo/angular-meteor
