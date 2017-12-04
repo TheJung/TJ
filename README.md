@@ -1,18 +1,17 @@
-# TJ App
+# 개요
 포럼 게시판
 
-## Dependencies
+## 기여
 
- * Typescript >= 2.4.2
- * Meteor Latest
+[CONTRIBUTE.md](/CONTRIBUTE.md)를 읽어보세요.
 
-## Getting on test app
+## 종속성
 
-  > $ git clone https://github.com/TheJung/TJ
+ * Typescript 2.4.2
+ * [Meteor](https://www.meteor.com/install) Latest
 
-  > $ cd TJ
-
-  > $ yarn # or npm install
+## 테스트 방법
+이 저장소를 clone 하고, meteor cil 툴로 테스트 합니다.
 
   > $ meteor
 
