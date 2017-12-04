@@ -3,6 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
+import { ButtonModule } from 'primeng/primeng';
+
 import { AppComponent } from './app.component';
 
 import { PageNotFoundComponent } from '../pages/page-not-found/page-not-found.component';
@@ -14,7 +16,8 @@ import { RouteSetting } from './routes';
   imports: [
     BrowserModule,
     FormsModule,
-    RouterModule.forRoot(RouteSetting)
+    RouterModule.forRoot(RouteSetting),
+    ButtonModule
   ],
   declarations: [
     AppComponent,
