@@ -1,7 +1,9 @@
+import { Mongo } from 'meteor/mongo'
+
 export interface Post {
-  _id?: string;
+  _id?: Mongo.ObjectID;
   title: string;
   content: string;
   createdAt: Date;
-  author: string;
+  author: Mongo.ObjectID;
 }

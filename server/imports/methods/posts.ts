@@ -1,21 +1,28 @@
 import { Meteor } from 'meteor/meteor';
+import { Mongo } from 'meteor/mongo';
 
-import { Posts } from '../../../imports/collections/posts';
 import { User } from 'imports/models/user';
 
 import * as hat from 'hat/index.js';
+import { Threads } from 'imports/collections/threads';
 
 Meteor.methods({
-  'addPost': (_id: string, title: string, content: string, author: string) => {
-    if (_id.length <= 0) {
-      _id = hat();
-    }
-
-    Posts.insert({
-      'title': title,
-      'content': content,
-      'author': author,
-      'createdAt': new Date()
-    });
+  'post.new': (thread: Mongo.ObjectID, title: string, content: string, author: Mongo.ObjectID) => {
+    Threads.update({
+      '_id': thread
+    }, {
+      $push: {
+        children: {
+          '_id': new Mongo.ObjectID(),
+          'title': title,
+          'content': content,
+          'createdAt': new Date(),
+          'author': author
+        }
+      }
+    })
+  },
+  'post.remove': (post: Mongo.ObjectID) => {
+    Threads.remove({ '_id': post });
   }
 });

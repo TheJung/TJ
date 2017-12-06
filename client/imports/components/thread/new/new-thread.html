@@ -1,0 +1,9 @@
+<div class="ui-g">
+  <div class="ui-g-12">
+    <textarea [(ngModel)]="content" class="vectical-only" style="width:100%" [rows]="5" [cols]="30" pInputTextarea autoResize="autoResize"></textarea>
+  </div>
+  <div class="ui-g-12">
+    
+    <p-splitButton label="제출" icon="fa-check" (onClick)="submit()" [model]="items"></p-splitButton>
+  </div>
+</div>

@@ -1,0 +1,4 @@
+<div *ngFor="let post of threads | async" >
+  <view-post [data]='post'></view-post>
+</div>
+<new-post #newpost [(ngModel)]='content' [onSubmit]='submit'></new-post>

@@ -1,6 +1,9 @@
+import { Mongo } from 'meteor/mongo'
+
 export interface User {
-  _id: string;
+  _id?: Mongo.ObjectID;
   id: string;
-  pw: string;
-  nick: string;
+  password: string;
+  nickname: string;
+  isAdmin: Boolean;
 }

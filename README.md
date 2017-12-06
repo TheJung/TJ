@@ -7,6 +7,7 @@
 
 ## 종속성
 
+ * Node.js LTS 8.9.*: some dependencies do not support latest node version
  * Typescript 2.4.2
  * [Meteor](https://www.meteor.com/install) Latest
 

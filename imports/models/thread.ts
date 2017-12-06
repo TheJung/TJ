@@ -1,9 +1,10 @@
+import { Mongo } from 'meteor/mongo'
+import { Post } from 'imports/models/post';
+
 export interface Thread {
-  _id?: string;
-  title: string;
-  author: string;
-  // root post _id.
-  rootPost: string;
-  // chilren post _id.
-  children?: string[];
+  _id?: Mongo.ObjectID;
+  author: Mongo.ObjectID;
+  tags: Array<string>;
+  root: Post,
+  children: Array<Post>
 }
