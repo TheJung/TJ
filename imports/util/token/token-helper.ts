@@ -24,7 +24,7 @@ export class TokenHelper {
   }
 
   /**
-   * validateToken -  토큰화 된 문자열을 해석해 반환합니다. 
+   * validateToken -  토큰화 된 문자열을 해석해 expiresIn 값을 읽고 만료되지 않았다면 반환합니다. 
    *                  서버에서만 작동합니다.
    * 
    * @param token - requestToken으로 토큰화 된 문자열입니다.

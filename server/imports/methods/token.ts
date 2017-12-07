@@ -8,7 +8,7 @@ const SECRET_KEY = 'TEST_SECRET_KEY';
 Meteor.methods({
   'token.request': (obj: any) => {
     const now = new Date().getTime();
-    obj.expiresIn = now + 604800;
+    
     const token = jwt.encode(obj, SECRET_KEY);
 
     return token;
