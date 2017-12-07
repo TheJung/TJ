@@ -5,8 +5,6 @@ import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './imports/app/app.module';
 
-import * as hat from 'hat/index.js';
-
 Meteor.startup(() => {
 
   if (Meteor.isProduction) {
@@ -14,7 +12,5 @@ Meteor.startup(() => {
   }
 
   platformBrowserDynamic().bootstrapModule(AppModule);
-
-  console.log(hat());
 
 });
