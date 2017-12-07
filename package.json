@@ -19,6 +19,7 @@
     "argon2": "^0.16.2",
     "babel-runtime": "6.26.0",
     "hat": "^0.0.3",
+    "jwt-simple": "^0.5.1",
     "meteor-node-stubs": "0.3.2",
     "meteor-rxjs": "0.4.8",
     "primeng": "^5.0.2",
