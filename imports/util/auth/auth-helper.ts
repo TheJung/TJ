@@ -2,6 +2,8 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 
 export class AuthHelper {
+  private isLoggedIn: Boolean = false;
+
   /**
    * login - 서버에 로그인을 요청합니다. 로그인에 성공하면 인증용 jwt 토큰을 반환합니다.
    * 
