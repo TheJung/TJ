@@ -3,27 +3,27 @@ import { Mongo } from 'meteor/mongo';
 
 export class AuthHelper {
   /**
-   * login - 서버에 로그인을 요청합니다. 인증용 jwt 토큰을 반환합니다.
+   * login - 서버에 로그인을 요청합니다. 로그인에 성공하면 인증용 jwt 토큰을 반환합니다.
    * 
    * @param id - 사용자 지정 가능한 ID 값입니다.
    * 
    * @param password - 평문의 비밀번호 입니다. 서버에서 암호화 해 비교합니다.
+   * 
+   * @param failed - 로그인에 실패했을 때 호출 되는 콜백 함수입니다. err 객체를 인자로 갖습니다.
    */
-  public login(id: string, password: string): string {
-    // id: string, password: string
+  public async login(id: string, password: string, failed?: Function): Promise<string> {
+    let request: Promise<string> = new Promise((resolve, reject) => {
+      // id: string, password: string
+      Meteor.call('user.login', id, password, (err, res) => {
+          if (err !== undefined) {
+            reject(err);
+          }
 
-    let result: string;
-
-    Meteor.call('user.login', id, password, (err, res) => {
-      if (err) {
-        console.log(err);
-        return;
-      }
-
-      result = res;
+          resolve(res);
+      });
     });
 
-    return result;
+    return request;
   }
 
   /**
@@ -33,7 +33,7 @@ export class AuthHelper {
    * 
    * @param password - 평문의 사용자 지정 가능한 비밀번호 값입니다. 저장될 때 암호화 됩니다.
    * 
-   * @param nick - 사용자 지정 가능한 사용자명 입니다.
+   * @param nick - 사용자 지정 가능한 사용자 별명 입니다.
    */
   public register(id: string, password: string, nick: string): Mongo.ObjectID {
     let result: Mongo.ObjectID;
@@ -41,8 +41,8 @@ export class AuthHelper {
     // id: string, pw: string, nick: string
     Meteor.call('user.register', id, password, nick, (err, res: Mongo.ObjectID) => {
       if (err) {
-        console.log(err);
-        
+        console.error(err);
+
         return;
       }
 
@@ -57,7 +57,7 @@ export class AuthHelper {
    * 
    * @param token - 서버로부터 받은 인증용 토큰입니다.
    * 
-   * @param password - 평문의 비밀번호 입니다.
+   * @param password - _id에 해당하는 계정의 평문으로 이루어진 비밀번호 입니다.
    */
   public reauth(token: string, password: string): string {
     let result;

@@ -7,20 +7,18 @@ export class TokenHelper {
    * 
    * @param obj - 토큰화 할 객체입니다.
    */
-  public requestToken(obj: any): string {
-    let token;
+  public async requestToken(obj: any): Promise<string> {
+    let requestToken = new Promise<string>((resolve: Function, reject: Function) => {
+      Meteor.call('token.request', obj, (err, res: string) => {
+        if (err !== undefined) {
+          reject(err);
+        }
 
-    Meteor.call('token.request', obj, // ~
-    (err, res: string) => {
-      if (err) {
-        console.error(err);
-        return;
-      }
-
-      token = res;
+        resolve(res);
+      });
     });
 
-    return token;
+    return requestToken;
   }
 
   /**
@@ -31,12 +29,7 @@ export class TokenHelper {
    */
   public validateToken(token: string) {
     if (!Meteor.isServer) {
-      console.error({
-        type: "NOT_RUNNING_ON_SERVER",
-        message: "토큰 인증은 서버에서만 할 수 있습니다."
-      });
-
-      return;
+      throw new Meteor.Error('Token.Error.Invalid', '서버에서만 토큰을 인증할 수 있습니다.');
     }
 
     let validToken;

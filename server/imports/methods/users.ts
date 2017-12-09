@@ -8,47 +8,60 @@ import { User } from 'imports/models/user';
 Meteor.methods({
   'user.login': async (id: string, password: string) => {
     let result = Users.find({
-      id: id,
-      password: password
+      id: id
     });
 
-    let requestedUser: User;
+    if (result.fetch().length <= 0) {
+      throw new Meteor.Error('User.Error.NoResult', '해당하는 계정이 없습니다.');
+    }
 
-    result.forEach((documents) => {
-      for (let user of documents) {
-        requestedUser = user;
+    for (let user of result.fetch()) {
+      let verifying = await verify(user.password, password);
+
+      if (verifying) {
+        const now = new Date();
+        const tokHelper = new TokenHelper();
+    
+        return await tokHelper.requestToken({
+          _id: user._id,
+          // 7 days
+          expiresIn: now.getTime() + 604800
+        });
       }
-    });
+    }
 
-    const now = new Date();
-    const tokHelper = new TokenHelper();
-
-    return tokHelper.requestToken({
-      _id: requestedUser._id,
-      // 7 days
-      expiresIn: now.getTime() + 604800
-    });
+    //throw new Meteor.Error('User.Error.Internal', '내부 함수에서 오류가 발생했습니다.');
   },
   'user.register': async (id: string, pw: string, nick: string) => {
     const hashed = await hash(pw, { type: argon2d });
-
     const _id = new Mongo.ObjectID();
 
+    let result = Users.find({
+      'id': id
+    });
+
+    if (result.fetch().length > 0) {
+      console.error('이미 같은 id의 계정이 존재합니다.');
+      throw new Meteor.Error('User.Error', '이미 같은 id의 계정이 존재합니다.');
+    }
+
+    ///*
     Users.insert({
       '_id': _id,
       'id': id,
       'password': hashed,
       'nickname': nick,
       'isAdmin': false
-    });
+    }); //*/
+
 
     return _id;
   },
-  'user.reauth': async (token: string) => {
+  'user.reauth': async (token: string, password: string) => {
     const tokHelper = new TokenHelper();
     const original = tokHelper.validateToken(token);
 
-    let result = Users.find({ _id: original._id });
+    let result = Users.find({ _id: original._id, password: original.password });
     let requestedUser: User;
     
     result.forEach((documents) => {
@@ -65,7 +78,7 @@ Meteor.methods({
       expiresIn: now.getTime() + 604800
     });
   },
-  'user.token.valid': (token: string, password: string) => {
+  'user.token.valid': (token: string) => {
     const tokHelper = new TokenHelper();
     const original = tokHelper.validateToken(token);
 
@@ -73,7 +86,7 @@ Meteor.methods({
       return false;
     }
 
-    let result = Users.find({ _id: original._id, password: password });
+    let result = Users.find({ _id: original._id });
 
     return !result.isEmpty();
   }
