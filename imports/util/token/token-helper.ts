@@ -35,7 +35,7 @@ export class TokenHelper {
     let validToken;
 
     Meteor.call('token.validate', token, (err, res) => {
-      if (err) {
+      if (err !== undefined) {
         if (err.type == 'Token.Error') {
           console.error(err.message);
         }

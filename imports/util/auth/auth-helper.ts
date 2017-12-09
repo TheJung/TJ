@@ -42,7 +42,7 @@ export class AuthHelper {
 
     // id: string, pw: string, nick: string
     Meteor.call('user.register', id, password, nick, (err, res: Mongo.ObjectID) => {
-      if (err) {
+      if (err !== undefined) {
         console.error(err);
 
         return;
@@ -65,7 +65,7 @@ export class AuthHelper {
     let result;
 
     Meteor.call('user.reauth', token, password, (err, res: string) => {
-      if (err) {
+      if (err !== undefined) {
         console.error(err);
 
         return;
