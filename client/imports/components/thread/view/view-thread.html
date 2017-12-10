@@ -1,4 +1,7 @@
-<div *ngFor="let post of threads | async" >
-  <view-post [data]='post'></view-post>
+<div *ngFor="let thread of threadResult | async" >
+  <view-post [data]='thread.root'></view-post>
+  <div *ngFor="let post of thread.children" >
+    <view-post [data]='post'></view-post>
+  </div>
 </div>
 <new-post #newpost [(ngModel)]='content' [onSubmit]='submit'></new-post>

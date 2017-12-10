@@ -1,3 +1,4 @@
+import { LocalDatabase } from './../db/localdb-helper';
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 
@@ -75,5 +76,33 @@ export class AuthHelper {
     });
 
     return result;
+  }
+
+  /**
+   * state
+   */
+  public async currentState(): Promise<{ valid: Boolean, uid: Mongo.ObjectID }> {
+    let db = new LocalDatabase('user');
+    let d: any = await db.get('latest-signed');
+
+    let state: Promise<any> = new Promise((response, reject) => {
+      Meteor.call('user.token.valid', d.token, (err, res) => {
+        if (err !== undefined) {
+          reject(err);
+        }
+
+        response(res);
+      });
+    });
+
+    return state;
+  }
+
+  /**
+   * logout - 로컬 데이터베이스의 저장된 토큰을 지웁니다.
+   */
+  public logout() {
+    let db = new LocalDatabase('user');
+    db.remove('latest-signed');
   }
 }

@@ -4,6 +4,8 @@ import { HomeComponent } from '../pages/home/home.component';
 import { Routes } from '@angular/router';
 import { ViewTopicPage } from 'client/imports/pages/topic/view/view-topic.component';
 import { AuthPage } from 'client/imports/pages/user/auth/auth.component';
+import { NewTopicPage } from '../pages/topic/new/new-topic.component';
+import { ViewForumPage } from 'client/imports/pages/forum/view/view-forum.component';
 
 export let RouteSetting: Routes = [
   // Home Page
@@ -17,15 +19,15 @@ export let RouteSetting: Routes = [
     component: HomeComponent
   },
   {
-    path: 'forum/view/:id',
-    component: HomeComponent
+    path: 'forum/view/:forum_id/:page',
+    component: ViewForumPage
   },
   {
-    path: 'topic/new',
-    component: HomeComponent
+    path: 'topic/new/:forum_id',
+    component: NewTopicPage
   },
   {
-    path: 'topic/view/:id/:page',
+    path: 'topic/view/:topic_id/:page',
     component: ViewTopicPage
   },
 

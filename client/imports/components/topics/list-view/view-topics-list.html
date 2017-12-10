@@ -1,0 +1,10 @@
+<div *ngIf="not_exists"> 
+  <p>not exists {{ forum_id }}</p>
+</div>
+<div *ngIf="!not_exists" >
+  <div  *ngFor="let topic of all_threads | async">
+    <a [routerLink]="['/topic/view/' + topic._id.toHexString() + '/1']">
+      <view-topic  [data]="topic.root"></view-topic>
+    </a>
+  </div>
+</div>

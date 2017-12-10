@@ -23,6 +23,12 @@ Meteor.methods({
     })
   },
   'post.remove': (post: Mongo.ObjectID) => {
-    Threads.remove({ '_id': post });
+    Threads.update({
+      children: {
+        '_id': post
+      }
+    }, {
+      
+    });
   }
 });

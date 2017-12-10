@@ -25,7 +25,7 @@ Meteor.methods({
         return await tokHelper.requestToken({
           _id: user._id,
           // 7 days
-          expiresIn: now.getTime() + 604800
+          expiresIn: now.getTime() + 604800000
         });
       }
     }
@@ -59,7 +59,7 @@ Meteor.methods({
   },
   'user.reauth': async (token: string, password: string) => {
     const tokHelper = new TokenHelper();
-    const original = tokHelper.validateToken(token);
+    const original = await tokHelper.validateToken(token);
 
     let result = Users.find({ _id: original._id, password: original.password });
     let requestedUser: User;
@@ -75,19 +75,22 @@ Meteor.methods({
     return tokHelper.requestToken({
       _id: requestedUser._id,
       // 7 days
-      expiresIn: now.getTime() + 604800
+      expiresIn: now.getTime() + 604800000
     });
   },
-  'user.token.valid': (token: string) => {
+  'user.token.valid': async (token: string) => {
     const tokHelper = new TokenHelper();
-    const original = tokHelper.validateToken(token);
-
+    const original = await tokHelper.validateToken(token);
+    
     if (original.expiresIn < new Date().getTime()) {
       return false;
     }
 
     let result = Users.find({ _id: original._id });
 
-    return !result.isEmpty();
+    return {
+      valid: !result.isEmpty(),
+      uid: original._id
+    };
   }
 });

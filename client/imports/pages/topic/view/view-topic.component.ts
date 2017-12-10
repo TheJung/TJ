@@ -6,7 +6,7 @@ import { Meteor } from 'meteor/meteor';
 import { ElementRef, ViewChild } from '@angular/core';
 
 @Component({
-  selector: 'view-topic',
+  selector: 'page-view-topic',
   templateUrl: 'view-topic.html'
 })
 export class ViewTopicPage {
@@ -30,7 +30,6 @@ export class ViewTopicPage {
     }); //*/
 
     this.content = '';
-    
-    console.log('test: ', this.posts);
+  
   }
 }

@@ -6,5 +6,6 @@ export interface Thread {
   author: Mongo.ObjectID;
   tags: Array<string>;
   root: Post,
-  children: Array<Post>
+  children: Array<Post>,
+  master: Mongo.ObjectID
 }

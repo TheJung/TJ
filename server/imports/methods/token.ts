@@ -1,7 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 
 import * as jwt from 'jwt-simple';
-import * as env from 'node-env-file';
 
 const SECRET_KEY = 'TEST_SECRET_KEY';
 
@@ -20,10 +19,7 @@ Meteor.methods({
 
     // token has expired.
     if (obj.expiresIn < now) {
-      throw {
-        type: "Token.Error",
-        message: "토큰이 만료 되었습니다."
-      };
+      throw new Meteor.Error('Token.Error', "토큰이 만료 되었습니다.");
     }
 
     return obj;

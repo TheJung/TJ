@@ -1,4 +1,5 @@
-import { MeteorObservable } from 'meteor-rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { MeteorObservable, ObservableCursor } from 'meteor-rxjs';
 import { Observable, Subscription } from 'rxjs';
 import { Component, Input, OnDestroy } from '@angular/core';
 
@@ -10,6 +11,8 @@ import { ElementRef, ViewChild } from '@angular/core';
 import { Post } from 'imports/models/post';
 import { Threads } from 'imports/collections/threads';
 import { Thread } from 'imports/models/thread';
+import { Subscriber } from 'rxjs/Subscriber';
+import { AuthHelper } from 'imports/util/auth/auth-helper';
 
 @Component({
   selector: 'view-thread',
@@ -18,30 +21,48 @@ import { Thread } from 'imports/models/thread';
 })
 export class ViewThreadComponent implements OnDestroy {
   // attributes
-  @Input() public thread_id: Mongo.ObjectID;
+  public thread_id: string;
   private on_page: string;
 
   // internal values
   private threadSubscription: Subscription;
-  protected threads: Observable<Thread[]>;
+  protected threadResult: ObservableCursor<Thread>;
   protected content: string = '';
 
-  ngOnInit() {
-    this.threadSubscription = MeteorObservable.subscribe('db.threads').subscribe(async () => {
-      this.threads = Threads.find({});
-      console.log(await this.threads);
+  threadTitle: string;
+  
+  onForum: Mongo.ObjectID;
+
+  constructor(private route: ActivatedRoute) {
+    this.thread_id = this.route.snapshot.paramMap.get('topic_id');
+    console.log(this.thread_id);
+    
+    this.threadSubscription = MeteorObservable.subscribe('db.threads').subscribe(() => {
+      this.threadResult = Threads.find({ _id: new Mongo.ObjectID(this.thread_id) });
+      this.threadResult.forEach((elem: any) => {
+        this.threadTitle = elem.root.title;
+        this.onForum = elem.master;
+      });
     });
   }
 
-  submit: Function = async () => {
-    // title: string, content: string, author: Mongo.ObjectID
-    Meteor.call('post.new', 'TestTitle', this.content, null, (err, res) => {
-      if (err) {
+  ngOnInit() { }
+
+  submit = async () => {
+    console.log('test');
+    let account = new AuthHelper();
+    const accountState = await account.currentState();
+
+    const thread = new Mongo.ObjectID(this.thread_id);
+
+    // thread: Mongo.ObjectID, title: string, content: string, author: Mongo.ObjectID
+    Meteor.call('post.new', thread, 'RE: ' + this.threadTitle, this.content, accountState.uid, (err, res) => {
+      if (err !== undefined) {
         console.log(err);
       }
-      
-      this.content = '';
     });
+      
+    this.content = '';
   }
 
   ngOnDestroy() {

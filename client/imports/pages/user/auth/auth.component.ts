@@ -2,6 +2,7 @@ import { TokenHelper } from 'imports/util/token/token-helper'
 import { Component } from '@angular/core';
 import { AuthHelper } from 'imports/util/auth/auth-helper';
 import { LocalDatabase } from 'imports/util/db/localdb-helper';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'page-auth',
@@ -15,10 +16,16 @@ export class AuthPage {
   helper = new AuthHelper();
   db = new LocalDatabase('user');
 
+  page: string;
+
+  constructor(private route: ActivatedRoute, private router: Router) {
+    this.page = route.snapshot.paramMap.get('page');
+  }
+
   login() {
     let err: Meteor.Error;
     this.helper.login(this.id, this.password).then((res) => {
-      this.db.setItem('latest-signed', {
+      this.db.set('latest-signed', {
         token: res
       });
     });

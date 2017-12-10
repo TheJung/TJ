@@ -8,11 +8,11 @@ export class LocalDatabase {
     this.database = new Ground.Collection(name);
   }
 
-  public async setItem(key: string, val: any) {
+  public async set(key: string, val: any) {
     return await this.database.storage.setItem(key, val);
   }
 
-  public async getItem(key: string) {
+  public async get(key: string) {
     return await this.database.storage.getItem(key);
   }
 
@@ -20,5 +20,8 @@ export class LocalDatabase {
     this.database.storage.clear();
   }
 
+  public async remove(key: string) {
+    this.database.storage.removeItem(key);
+  }
 }
 
