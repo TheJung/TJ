@@ -92,5 +92,21 @@ Meteor.methods({
       valid: !result.isEmpty(),
       uid: original._id
     };
+  },
+  'user.info.me': async (token: string) => {
+    const tokHelper = new TokenHelper();
+    const me = await tokHelper.validateToken(token);
+
+    let uid = new Mongo.ObjectID(me._id._str);
+
+    let result = Users.findOne({ _id: uid });
+
+    console.log(result);
+
+    return {
+      _id: result._id,
+      id: result.id,
+      nickname: result.nickname
+    };
   }
 });
