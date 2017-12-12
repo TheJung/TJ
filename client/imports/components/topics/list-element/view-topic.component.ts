@@ -8,6 +8,8 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ViewTopicComponent implements OnInit {
   @Input() data;
+  @Input() views: number;
+  @Input() likes: number;
 
   thread_id: string;
 

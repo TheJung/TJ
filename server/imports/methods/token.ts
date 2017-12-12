@@ -24,4 +24,4 @@ Meteor.methods({
 
     return obj;
   }
-})
+});

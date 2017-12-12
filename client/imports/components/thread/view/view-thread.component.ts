@@ -35,7 +35,6 @@ export class ViewThreadComponent implements OnDestroy {
 
   constructor(private route: ActivatedRoute) {
     this.thread_id = this.route.snapshot.paramMap.get('topic_id');
-    console.log(this.thread_id);
     
     this.threadSubscription = MeteorObservable.subscribe('db.threads').subscribe(() => {
       this.threadResult = Threads.find({ _id: new Mongo.ObjectID(this.thread_id) });
@@ -49,7 +48,6 @@ export class ViewThreadComponent implements OnDestroy {
   ngOnInit() { }
 
   submit = async () => {
-    console.log('test');
     let account = new AuthHelper();
     const accountState = await account.currentState();
 

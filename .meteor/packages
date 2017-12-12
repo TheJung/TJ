@@ -20,3 +20,5 @@ angular-compilers
 easysearch:elasticsearch
 aldeed:simple-schema
 ground:db
+rocketchat:streamer
+ostrio:files

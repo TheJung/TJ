@@ -6,7 +6,6 @@ import { MeteorObservable } from 'meteor-rxjs';
 Meteor.methods({
   'password.hash': (password: string) => {
     const hashed_pw = hash('password', { type: argon2d });
-    hashed_pw.then(a => { console.log(password, " : ", a); });
 
     return hashed_pw;
   },
@@ -17,4 +16,4 @@ Meteor.methods({
 
     return isValid;
   }
-})
+});

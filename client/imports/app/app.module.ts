@@ -10,7 +10,9 @@ import {
   SplitButtonModule,
   InputTextModule,
   PasswordModule,
-  ChipsModule
+  ChipsModule,
+  FileUploadModule,
+  GrowlModule
 } from 'primeng/primeng';
 
 import { AppComponent } from './app.component';
@@ -36,6 +38,9 @@ import { ViewMenubarComponent } from '../components/menubar/view/view-menubar.co
 // Settings
 import { RouteSetting } from './routes';
 
+// Providers
+import { AuthHelper } from 'imports/util/auth/auth-helper';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -47,7 +52,9 @@ import { RouteSetting } from './routes';
     SplitButtonModule,
     InputTextModule,
     PasswordModule,
-    ChipsModule
+    ChipsModule,
+    FileUploadModule,
+    GrowlModule
   ],
   declarations: [
     AppComponent,
@@ -68,6 +75,9 @@ import { RouteSetting } from './routes';
   ],
   bootstrap: [
     AppComponent
+  ],
+  providers: [
+    AuthHelper
   ]
 })
 export class AppModule { }
