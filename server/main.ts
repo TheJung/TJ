@@ -7,3 +7,4 @@ import './imports/methods/forum';
 import './imports/publications/threads';
 import './imports/publications/users';
 import './imports/publications/forums';
+import './imports/publications/files';
