@@ -27,12 +27,12 @@ export class TokenHelper {
    * 
    * @param token - requestToken으로 토큰화 된 문자열입니다.
    */
-  public async validateToken(token: string): Promise<any> {
+  public async validateToken(token: string): Promise<{ _id: { _str: string }, expiresIn: number }> {
     if (!Meteor.isServer) {
       throw new Meteor.Error('Token.Error.Invalid', '서버에서만 토큰을 인증할 수 있습니다.');
     }
 
-    let validToken = new Promise((response, reject) => {
+    let validToken: Promise<any> = new Promise((response, reject) => {
       Meteor.call('token.validate', token, (err, res) => {
         if (err !== undefined) {
           console.error(err);
@@ -43,8 +43,6 @@ export class TokenHelper {
       });
     });
 
-    let result = await validToken;
-
-    return result;
+    return validToken;
   }
 }
