@@ -1,3 +1,4 @@
+import { ListMessagesComponent } from './../components/message/postbox/list/list-messages.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
@@ -12,7 +13,8 @@ import {
   PasswordModule,
   ChipsModule,
   FileUploadModule,
-  GrowlModule
+  GrowlModule,
+  AutoCompleteModule
 } from 'primeng/primeng';
 
 import { AppComponent } from './app.component';
@@ -24,6 +26,9 @@ import { ViewTopicPage } from '../pages/topic/view/view-topic.component';
 import { AuthPage } from '../pages/user/auth/auth.component';
 import { NewTopicPage } from '../pages/topic/new/new-topic.component';
 import { ViewForumPage } from '../pages/forum/view/view-forum.component';
+import { ViewMessagePage } from '../pages/user/message/view/view-message.component';
+import { PostboxPage } from '../pages/user/postbox/postbox.component';
+import { NewMessagePage } from '../pages/user/message/new/new-message.component';
 
 // Components
 import { ViewPostComponent } from '../components/posts/view/view-post.component';
@@ -34,6 +39,10 @@ import { ViewThreadComponent } from '../components/thread/view/view-thread.compo
 import { ViewTopicListComponent } from '../components/topics/list-view/view-topics-list.component';
 import { ViewTopicComponent } from '../components/topics/list-element/view-topic.component';
 import { ViewMenubarComponent } from '../components/menubar/view/view-menubar.component';
+import { MessageBoxComponent } from './../components/message/message-box/message-box.component';
+import { BubbleComponent } from './../components/message/bubble/bubble.component';
+import { ViewPostboxComponent } from '../components/message/postbox/view/view-postbox.component';
+import { NewMessageComponent } from '../components/message/postbox/new/new-message.component';
 
 // Settings
 import { RouteSetting } from './routes';
@@ -54,7 +63,8 @@ import { AuthHelper } from 'imports/util/auth/auth-helper';
     PasswordModule,
     ChipsModule,
     FileUploadModule,
-    GrowlModule
+    GrowlModule,
+    AutoCompleteModule
   ],
   declarations: [
     AppComponent,
@@ -71,7 +81,15 @@ import { AuthHelper } from 'imports/util/auth/auth-helper';
     ViewTopicComponent,
     NewTopicPage,
     ViewForumPage,
-    ViewMenubarComponent
+    ViewMenubarComponent,
+    BubbleComponent,
+    MessageBoxComponent,
+    ViewMessagePage,
+    PostboxPage,
+    ViewPostboxComponent,
+    NewMessageComponent,
+    NewMessagePage,
+    ListMessagesComponent
   ],
   bootstrap: [
     AppComponent

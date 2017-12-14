@@ -1,0 +1,11 @@
+<div *ngFor="let msgs of messagesCollection | async" style="display: inline; width:100%">
+  <ul *ngFor="let msg of msgs.chatHistory">
+    <li style="list-style:none;">
+      <div class="ui-g">
+        <div class="ui-g-12" style="width: 100%">
+          <message-bubble [class]="msg.sender.toHexString() !== user._id.toHexString() ? 'received' : 'sent'" [text]="msg.content"></message-bubble>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

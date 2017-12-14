@@ -1,3 +1,6 @@
+import { ViewMessagePage } from './../pages/user/message/view/view-message.component';
+import { PostboxPage } from 'client/imports/pages/user/postbox/postbox.component';
+
 import { PageNotFoundComponent } from '../pages/page-not-found/page-not-found.component';
 import { HomeComponent } from '../pages/home/home.component';
 
@@ -6,6 +9,7 @@ import { ViewTopicPage } from 'client/imports/pages/topic/view/view-topic.compon
 import { AuthPage } from 'client/imports/pages/user/auth/auth.component';
 import { NewTopicPage } from '../pages/topic/new/new-topic.component';
 import { ViewForumPage } from 'client/imports/pages/forum/view/view-forum.component';
+import { NewMessagePage } from 'client/imports/pages/user/message/new/new-message.component';
 
 export let RouteSetting: Routes = [
   // Home Page
@@ -41,6 +45,27 @@ export let RouteSetting: Routes = [
     path: 'auth/:page',
     component: AuthPage
   },
+
+  // postbox
+
+  {
+    path: 'user/postbox',
+    redirectTo: '/user/postbox/list',
+    pathMatch: 'full'
+  },
+  {
+    path: 'user/postbox/list',
+    component: PostboxPage
+  },
+  {
+    path: 'user/postbox/new',
+    component: NewMessagePage
+  },
+  {
+    path: 'user/postbox/view/:id',
+    component: ViewMessagePage
+  }
+
   // 404 Page
   {
     path: '**',

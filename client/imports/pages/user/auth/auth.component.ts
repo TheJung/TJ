@@ -28,6 +28,10 @@ export class AuthPage {
       this.db.set('latest-signed', {
         token: res
       });
+
+      console.log('success');
+    }).catch((error) => {
+      console.error(error);
     });
   }
 
