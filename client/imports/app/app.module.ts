@@ -43,6 +43,7 @@ import { MessageBoxComponent } from './../components/message/message-box/message
 import { BubbleComponent } from './../components/message/bubble/bubble.component';
 import { ViewPostboxComponent } from '../components/message/postbox/view/view-postbox.component';
 import { NewMessageComponent } from '../components/message/postbox/new/new-message.component';
+import { NotifierComponent } from '../components/notification/notifier/notifier.component';
 
 // Settings
 import { RouteSetting } from './routes';
@@ -89,7 +90,8 @@ import { AuthHelper } from 'imports/util/auth/auth-helper';
     ViewPostboxComponent,
     NewMessageComponent,
     NewMessagePage,
-    ListMessagesComponent
+    ListMessagesComponent,
+    NotifierComponent
   ],
   bootstrap: [
     AppComponent
