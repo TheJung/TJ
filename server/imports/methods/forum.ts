@@ -6,11 +6,11 @@ import { Mongo } from 'meteor/mongo';
 import { MeteorObservable } from 'meteor-rxjs';
 
 Meteor.methods({
-  'forum.new': (subject: string, setting?: ForumSetting) => {
+  'forum.new': (subject: string, category: string, setting?: ForumSetting) => {
 
-    if (setting === undefined && setting === null) {
+    if (setting === undefined || setting === null) {
       setting = {
-        manager: null,
+        managers: new Array(),
         read: true,
         write: true,
         requirePermission: { criteria: 'user' }
@@ -23,7 +23,8 @@ Meteor.methods({
       '_id': _id,
       'subject': subject,
       'createdAt': new Date(),
-      'setting': setting
+      'setting': setting,
+      'category': category
     });
 
     return _id;
