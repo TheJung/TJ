@@ -49,5 +49,28 @@ Meteor.methods({
         'root.view': 1
       }
     });
+  }, 
+  'thread.like': (thread: Mongo.ObjectID, liker: Mongo.ObjectID) => {
+    let t = Threads.findOne({
+      _id: thread
+    });
+
+    let isLikedBefore = t.root.likes.find((val, index, obj) => {
+      return val.toHexString() === liker.toHexString();
+    });
+
+    if (isLikedBefore) {
+      Threads.update({
+        _id: thread
+      }, {
+        root: {
+          $push: {
+            likes: liker
+          }
+        }
+      });
+    } else {
+      throw new Meteor.Error('already-like', '이미 추천했습니다.');
+    }
   }
 });
