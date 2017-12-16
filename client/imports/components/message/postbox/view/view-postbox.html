@@ -1,0 +1,15 @@
+<div class="ui-g">
+  <div class="ui-12" style="width:100%">
+    <message-box [messageId]="id"></message-box>
+  </div>
+</div>
+
+
+<div class="ui-g">
+  <div class="ui-g-10">
+      <textarea [(ngModel)]="text" style="width:100%" [rows]="5" [cols]="30" pInputTextarea autoResize="autoResize"></textarea>
+  </div>
+  <div class="ui-g-2">
+    <button style="width:100%; height:100%" pButton type="button" (click)="send()" label="송신"></button>
+  </div>
+</div>

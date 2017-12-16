@@ -1,0 +1,21 @@
+
+<div class="ui-g">
+  <div class="ui-g-12">
+    <p-autoComplete [(ngModel)]="userInput" 
+      [suggestions]="results" 
+      (completeMethod)="search($event)"
+      (onSelect)="autoOnSelect($event)"
+      (onKeyUp)="autoOnKeyup($event)"></p-autoComplete>
+  </div>
+  <div class="ui-g-12">
+    <div style="size: 9px" *ngFor="let selected of resultsData; index as i">
+      <span>{{ selected.nickname }}</span>
+      <span (click)="popInList(i)">[x]</span>
+    </div>
+  </div>
+  <div class="ui-g-12">
+    <textarea pInputTextarea [(ngModel)]="content"></textarea>
+  </div>
+</div>
+
+<button pButton type="button" (click)="makeNewMessage()" label="새 메시지 만들기"></button>

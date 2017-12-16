@@ -1,0 +1,11 @@
+<div class="ui-g">
+  <div class="ui-g-1">
+    user icon
+  </div>
+  <div class="ui-g-10">
+    <textarea [(ngModel)]="value" class="vectical-only" (blur)="onBlur()" style="width:100%" [rows]="5" [cols]="30" pInputTextarea autoResize="autoResize"></textarea>
+  </div>
+  <div class="ui-g-1">
+    <button class="full-button" pButton type="button" (click)="submit()" label="제출"></button>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+<div *ngIf="page === 'login'" >
+  <input placeholder="ID" type="text" pInputText [(ngModel)]="id" />
+  <input placeholder="Password" type="password" pPassword [(ngModel)]="password"/>
+  <button pButton type="button" (click)="login()" label="로그인"></button>
+</div>
+<div *ngIf="page === 'register'" >
+  <input placeholder="ID" type="text" pInputText [(ngModel)]="id" />
+  <input placeholder="Password" type="password" pPassword [(ngModel)]="password"/>
+  <input placeholder="닉네임" type="text" pInputText [(ngModel)]="nick"/>
+  
+  <button pButton type="button" (click)="register()" label="회원 가입"></button>
+</div>
