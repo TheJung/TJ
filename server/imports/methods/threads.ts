@@ -21,10 +21,12 @@ Meteor.methods({
         title: title,
         content: content,
         createdAt: new Date(),
-        author: author
+        author: author,
+        likes: new Array<Mongo.ObjectID>(),
+        view: 0
       },
       children: new Array<Post>(),
-      master: forum
+      master: forum,
     });
 
     return _id;
@@ -37,6 +39,15 @@ Meteor.methods({
   'thread.remove.forum-removed': (forum: Mongo.ObjectID) => {
     Threads.remove({
       master: forum
+    });
+  },
+  'thread.view': (thread: Mongo.ObjectID) => {
+    Threads.update({
+      _id: thread
+    }, {
+      $inc: {
+        'root.view': 1
+      }
     });
   }
 });
